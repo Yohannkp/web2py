@@ -1,0 +1,39 @@
+{{extend 'header.html'}} {{ block contenu }}
+<h2>Ajout d'une publication</h2>
+<a href="{{=URL( 'publications', 'liste')}}"><button type="button " class="btn rounded-pill btn-success ">Retour</button></a>
+<form class="form-horizontal " method="post" action="{{=URL( 'publications', 'ajout')}} " enctype="multipart/form-data">
+    <div class=" form-group ">
+        <label class="control-label col-sm-2 " for="numero_affiche">Numero affiche :</label>
+        <div class="col-sm-10 ">
+            <input type="text" class="form-control " id="numero_affiche" name="numero_affiche" required>
+        </div>
+    </div>
+    <div class="form-group ">
+        <label class="control-label col-sm-2 " for="date_projection">Date projection :</label>
+        <div class="col-sm-10 ">
+            <input type="date" class="form-control " id="date_projection" name="date_projection" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="image">Image :</label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+        </div>
+    </div>
+    <div class="form-group ">
+        <label class="control-label col-sm-2 " for="film_id">Film :</label>
+        <div class="col-sm-8 form-group ">
+            <select class="form-control" name="film_id">
+                {{ for film in films: }}
+                    <option value="{{ =film.id }}">{{ =film.titre }}</option>
+                {{ pass }}
+            </select>
+        </div>
+    </div>
+    <div class="form-group button ">
+        <div class="col-sm-offset-2 col-sm-10 ">
+            <button type="submit" class="btn btn-primary ">Ajouter</button>
+        </div>
+    </div>
+</form>
+{{ end }}

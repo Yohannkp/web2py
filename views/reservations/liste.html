@@ -1,0 +1,58 @@
+{{extend 'header.html'}} {{ block contenu }}
+<h2>Liste des réservations</h2>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre de places</th>
+            
+            <th>Utilisateur</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for row in reservations:}}
+        <tr>
+            <td>
+                {{= row.id }}
+            </td>
+            <td>
+                {{= row.nombre_places }}
+            </td>
+            <td>
+                {{= row.utilisateur_id.last_name }} {{= row.utilisateur_id.first_name }}
+            </td>
+            <td style="text-align: center;">
+                <a class="btn rounded-pill btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">Supprimer</a>
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Suppression d'une réservation</h4>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Cette action est irréversible ! Voulez-vous supprimer cette réservation ?
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <a class="btn rounded-pill btn-danger" href="{{=URL('reservations', 'supprimer', vars={'id': row.id})}}">Confirmez</a>
+                                <a class="btn btn-secondary" data-bs-dismiss="modal">Annuler</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <a href="{{=URL('reservations', 'modifier_reservation') }}"><button type="button" class="btn btn-warning" >Modifier</button></a>
+            </td>
+        </tr>
+        {{pass}}
+    </tbody>
+</table>
+<a href="{{=URL('reservations', 'ajout') }}"><button type="button" class="btn rounded-pill btn-info" >Ajouter</button></a> {{ end }}
