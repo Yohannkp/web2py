@@ -1,0 +1,66 @@
+{{extend 'header.html'}} {{ block contenu }}
+<h2>Liste des films</h2>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre du film</th>
+            <th>Description</th>
+            <th>Date sortie</th>
+            <th>Réalisateur</th>
+            <th>Durée</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for row in films:}}
+        <tr>
+            <td>
+                {{= row.id }}
+            </td>
+            <td>
+                {{= row.titre }}
+            </td>
+            <td>
+                {{= row.description }}
+            </td>
+            <td>
+                {{= row.date_sortie }}
+            </td>
+            <td>
+                {{= row.realisateur }}
+            </td>
+            <td>
+                {{= row.duree }}
+            </td>
+            <td style="text-align: center;">
+                <a class="btn rounded-pill btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">Supprimer</a>
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Suppression d'un film</h4>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Cette action est irréversible ! Voulez-vous supprimer ce film ?
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <a class="btn rounded-pill btn-danger" href="{{=URL('films', 'supprimer', vars={'id': row.id})}}">Confirmez</a>
+                                <a class="btn btn-secondary" data-bs-dismiss="modal">Annuler</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {{pass}}
+    </tbody>
+</table>
+<a href="{{ =URL('films', 'ajout') }}"><button type="button" class="btn rounded-pill btn-info" >Ajouter</button></a> {{ end }}

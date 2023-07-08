@@ -1,0 +1,43 @@
+{{ extend 'header.html' }} {{ block contenu }}
+
+<h4 style="text-align: center;">MIABE-CINEMA😍</h4>
+<div class="row">
+    {{for row in affiches:}}
+    <div class="column">
+        <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{= URL('static', 'uploads/' + row.image, False)  }}" alt="Card image cap" style="width: 200px; height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title">Titre Film : {{= row.film_id.titre }}</h5>
+                    <p class="card-text">Date sortie : {{ = row.film_id.date_sortie }}</p>
+                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">En savoir plus</a>
+                    <div class="modal" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Suppression d'une publication</h4>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    Cette action est irréversible ! Voulez-vous supprimer cette publication ?
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <a class="btn rounded-pill btn-danger" href="{{=URL('publications', 'supprimer', vars={'id': row.id})}}">Confirmez</a>
+                                    <a class="btn btn-secondary" data-bs-dismiss="modal">Annuler</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{pass}}
+</div>
+{{ end }}

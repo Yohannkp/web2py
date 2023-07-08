@@ -1,0 +1,62 @@
+{{extend 'header.html'}} {{ block contenu }}
+<h2>Liste des publications</h2>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Numero de l'affiche</th>
+            <th>Date projection</th>
+            <th>Image</th>
+            <th>Film</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for row in affiches:}}
+        <tr>
+            <td>
+                {{= row.id }}
+            </td>
+            <td>
+                {{= row.numero_affiche }}
+            </td>
+            <td>
+                {{= row.date_projection }}
+            </td>
+            <td>
+                <img src="{{= URL('static', 'uploads/' + row.image, False) }}" style="width: 50px; height: 50px;">
+            </td>
+            <td>
+                {{= row.film_id.titre }}
+            </td>
+            <td style="text-align: center;">
+                <a class="btn rounded-pill btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">Supprimer</a>
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Suppression d'une publication</h4>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Cette action est irréversible ! Voulez-vous supprimer cette publication ?
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <a class="btn rounded-pill btn-danger" href="{{=URL('publications', 'supprimer', vars={'id': row.id})}}">Confirmez</a>
+                                <a class="btn btn-secondary" data-bs-dismiss="modal">Annuler</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {{pass}} 
+    </tbody>
+</table>
+<a href="{{ =URL('publications', 'ajout') }}"><button type="button" class="btn rounded-pill btn-info" >Ajouter</button></a> {{ end }}
